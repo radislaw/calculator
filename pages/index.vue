@@ -1,118 +1,25 @@
 <template>
   <section class="container">
     <div class="calculator">
-      <input type="number" class="calculator-input">
-      <div class="buttons">
-        <button v-for="button in buttons" :key="button.value" class="button">
-          {{ button.value }}
-        </button>
+      <input v-model="value" type="text" class="calculator-input">
+      <div class="buttons-wrap">
+        <div class="buttons-eng">
+          <button v-for="button in buttonsEng" :key="button.value" class="button" :class="button.style">
+            {{ button.value }}
+          </button>
+        </div>
+        <div class="buttons">
+          <button
+            v-for="{value, style} in buttons"
+            :key="value"
+            class="button"
+            :class="style"
+            @click="addValue(value)"
+          >
+            {{ value }}
+          </button>
+        </div>
       </div>
-      <!--      <div class="calculator-row">-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn gray action" @click="clear()">-->
-      <!--            C-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn gray action" @click="del()">-->
-      <!--            del-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn gray action" @click="addExpresion('%')">-->
-      <!--            %-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn accent action" @click="addExpresion('/')">-->
-      <!--            /-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <div class="calculator-row">-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(7)">-->
-      <!--            7-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(8)">-->
-      <!--            8-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(9)">-->
-      <!--            9-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn accent action" @click="addExpresion('*')">-->
-      <!--            *-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <div class="calculator-row">-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(4)">-->
-      <!--            4-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(5)">-->
-      <!--            5-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(6)">-->
-      <!--            6-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn accent action" @click="addExpresion('-')">-->
-      <!--            - -->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <div class="calculator-row">-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(1)">-->
-      <!--            1-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(2)">-->
-      <!--            2-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(3)">-->
-      <!--            3-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn accent action" @click="addExpresion('+')">-->
-      <!--            +-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--      <div class="calculator-row">-->
-      <!--        <div class="calculator-col wide">-->
-      <!--          <button class="calculator-btn" @click="addExpresion(0)">-->
-      <!--            0-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn action" @click="addExpresion('.')">-->
-      <!--            .-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--        <div class="calculator-col">-->
-      <!--          <button class="calculator-btn accent action" @click="getResult()">-->
-      <!--            =-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--      </div>-->
-    </div>
     </div>
   </section>
 </template>
@@ -124,19 +31,112 @@ export default {
   components: {},
   data() {
     return {
+      value: '',
+      buttonsEng: [
+        {
+          value: '('
+        },
+        {
+          value: ')'
+        },
+        {
+          value: 'mc'
+        },
+        {
+          value: 'm+'
+        },
+        {
+          value: 'm-'
+        },
+        {
+          value: 'mr'
+        },
+        {
+          value: '2nd'
+        },
+        {
+          value: 'x2'
+        },
+        {
+          value: 'x3'
+        },
+        {
+          value: 'xy'
+        },
+        {
+          value: 'ex'
+        },
+        {
+          value: '10x'
+        },
+        {
+          value: '1/x'
+        },
+        {
+          value: '2√x'
+        },
+        {
+          value: '∛x'
+        },
+        {
+          value: 'x√x'
+        },
+        {
+          value: 'In'
+        },
+        {
+          value: 'log10'
+        },
+        {
+          value: 'x!'
+        },
+        {
+          value: 'sin'
+        },
+        {
+          value: 'cos'
+        },
+        {
+          value: 'tan'
+        },
+        {
+          value: 'e'
+        },
+        {
+          value: 'EE'
+        },
+        {
+          value: 'Rad'
+        },
+        {
+          value: 'sinh'
+        },
+        {
+          value: 'cosh'
+        },
+        {
+          value: 'tanh'
+        },
+        {
+          value: 'π'
+        },
+        {
+          value: 'Rand'
+        }
+      ],
       buttons: [
         {
           value: 'C'
         },
         {
-          value: 'del'
+          value: '±'
         },
         {
           value: '%'
         },
         {
           value: '÷',
-          type: 'operator'
+          style: 'accent'
         },
         {
           value: 7
@@ -148,7 +148,8 @@ export default {
           value: 9
         },
         {
-          value: '×'
+          value: '×',
+          style: 'accent'
         },
         {
           value: 4
@@ -157,7 +158,11 @@ export default {
           value: 5
         },
         {
-          value: '-'
+          value: 6
+        },
+        {
+          value: '-',
+          style: 'accent'
         },
         {
           value: 1
@@ -169,18 +174,26 @@ export default {
           value: 3
         },
         {
-          value: '+'
+          value: '+',
+          style: 'accent'
         },
         {
-          value: 0
+          value: 0,
+          style: 'col-2'
         },
         {
-          value: '.'
+          value: ','
         },
         {
-          value: '='
+          value: '=',
+          style: 'accent'
         }
       ]
+    }
+  },
+  methods: {
+    addValue(val) {
+      this.value += val
     }
   }
 }
@@ -188,25 +201,26 @@ export default {
 
 <style lang="scss">
 
-.container {
-  margin:          0 auto;
-  min-height:      100vh;
-  padding-top:     2rem;
-  display:         flex;
-  justify-content: center;
-  text-align:      center;
-}
+  .container {
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
 
-.calculator {
-      width:            100%;
-      margin:           0 auto;
-      display:          flex;
-      padding:          0;
-      max-width:        320px;
-      min-width:        320px;
-      flex-direction:   column;
-      background-color: $darker;
-    }
+  .calculator {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    padding: 0;
+    min-width: 600px;
+    max-width: 600px;
+    flex-direction: column;
+    background-color: $darker;
+    height: fit-content;
+  }
 
   /*  .calculator-row {
   display:         flex;
@@ -224,44 +238,54 @@ export default {
   }
 } */
 
-    .calculator-input {
-      color:       $base;
-      width:       100%;
-      border:      none;
-      padding:     .8rem;
-      display:     block;
-      font-size:   2.4rem;
-      background:  none;
-      text-align:  right;
-      font-weight: lighter;
+  .calculator-input {
+    color: $base;
+    width: 100%;
+    border: none;
+    padding: .8rem;
+    display: block;
+    font-size: 2.4rem;
+    background: none;
+    text-align: right;
+    font-weight: lighter;
 
-      &:focus, &:active {
-        outline: none;
-      }
+    &:focus, &:active {
+      outline: none;
     }
+  }
 
   .buttons {
-    display:               grid;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
 
+  .buttons-eng {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .buttons-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .button {
-    width:            100%;
-    color:            $base;
-    border:           none;
-    cursor:           pointer;
-    padding:          .8rem;
-    outline:          none;
-    font-size:        1.6rem;
-    transition:       all .3s ease-in-out;
-    font-weight:      200;
-    justify-content:  center;
+    width: 100%;
+    color: $base;
+    border: none;
+    cursor: pointer;
+    padding: 0.7rem;
+    outline: none;
+    font-size: 1.2rem;
+    transition: all .3s ease-in-out;
+    font-weight: 200;
+    justify-content: center;
     background-color: $gray;
-    box-shadow:       0 0 0 1px $darker;
+    box-shadow: 0 0 0 1px $darker;
 
     &.accent {
       background-color: $accent;
-      color:            $white;
+      color: $white;
     }
 
     &.gray {
@@ -274,6 +298,11 @@ export default {
     &:active {
       background-color: $darker;
     }
-}
+
+    &.col-2 {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+  }
 
 </style>
