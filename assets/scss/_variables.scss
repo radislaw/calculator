@@ -1,0 +1,92 @@
+/* Primary colors palette */
+$white: #FFFFFF;
+$black: #000000;
+$gray: #333333;
+$blue: #266eb6;
+$orange: #f49e3f;
+
+$darker: #2f2f31;
+$dark:   #424345;
+$gray:   #616163;
+$base:  #d4d4d2;
+$accent: $orange;
+
+/* Derivative colors */
+$black-10: rgba($black, 0.1);
+$black-20: rgba($black, 0.2);
+$black-30: rgba($black, 0.3);
+$black-40: rgba($black, 0.4);
+$black-50: rgba($black, 0.5);
+$black-60: rgba($black, 0.6);
+$black-70: rgba($black, 0.7);
+$black-80: rgba($black, 0.8);
+$black-90: rgba($black, 0.9);
+
+$gray-10: #F4F4F4;
+$gray-20: #E0E0E0;
+$gray-30: #CCCCCC;
+$gray-40: #999;
+
+$blue-light: #0082CD;
+$blue-dark: #1D5AB6;
+
+$orange-light: #ff9922;
+$orange-dark: #fd7722;
+
+$green-light: #27AE60;
+
+
+/* Font colors */
+$base-color: $black-80;
+$success: $green-light;
+
+$h1-color: $black;
+$notification-color: $black-60;
+
+$blue-link: $blue;
+$hover-blue-link: $blue-light;
+$gray-link: $black-80;
+$hover-gray-link: $blue-light;
+
+/* States */
+$success-bg: #D2F6DB;
+$warning-bg: #FFF2D0;
+$error-bg: #FFE3E4;
+
+/* Font sizes */
+$base-font: 1rem;
+$medium-font: 13px;
+$small-font: 12px;
+
+$h1: 2.5rem;
+$h2: 2rem;
+$h3: 1.75rem;
+$h4: 1.5rem;
+$h5: 1.25rem;
+$h6: $base-font;
+
+/* Forms */
+$input-label: $black-80;
+$input-color: $black-80;
+$input-bg: $white;
+$input-border: 1px solid $gray-30;
+$input-shadow: 0px 0px 2px rgba(0, 119, 221, 0.45);
+$input-placeholder: $black-40;
+$input-disabled-bg: $gray-10;
+$input-disabled-color: $black-40;
+$input-disabled-border: $gray-20;
+$input-addon: $gray-10;
+
+// success
+$input-success-icon: $green-light;
+
+// warning
+$input-warning-color: #D39800;
+$input-warning-border: 1px solid #F4B000;
+$input-warning-icon: #F4B000;
+$input-warning-shadow:  0px 0px 2px rgba(#F4B000, 0.45);
+
+// disabled
+$input-disabled-bg: $gray-10;
+$input-disabled-color: $black-40;
+$input-disabled-border: $gray-20;

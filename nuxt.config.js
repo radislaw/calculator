@@ -29,6 +29,10 @@ module.exports = {
   css: [
   ],
 
+  styleResources: {
+    scss: ['@/assets/scss/app.scss']
+  },
+
   /*
   ** Plugins to load before mounting the App
   */
@@ -41,7 +45,8 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/style-resources',
   ],
   /*
   ** Axios module configuration
