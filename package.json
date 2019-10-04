@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test": "jest"
+    "test": "jest --verbose --notify --watch",
+    "heroku-bostbuild": "npm run build"
   },
   "dependencies": {
     "cross-env": "^5.2.0",
