@@ -4,7 +4,12 @@
       <input v-model="value" type="text" class="calculator-input">
       <div class="buttons-wrap">
         <div class="buttons-eng">
-          <button v-for="button in buttonsEng" :key="button.value" class="button" :class="button.style">
+          <button
+            v-for="button in buttonsEng"
+            :key="button.value"
+            class="button"
+            :class="button.style"
+          >
             {{ button.value }}
           </button>
         </div>
