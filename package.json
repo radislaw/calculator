@@ -12,6 +12,8 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "test": "jest --verbose --notify --watch",
+    "styleguide": "vue-styleguidist server",
+    "styleguide:build": "vue-styleguidist build",
     "heroku-bostbuild": "npm run build"
   },
   "dependencies": {
@@ -41,6 +43,11 @@
     "jest": "^23.6.0",
     "mathjs": "^6.2.2",
     "nodemon": "^1.18.9",
-    "vue-jest": "^3.0.2"
+    "vue-jest": "^3.0.2",
+    "vue-styleguidist": "^3.24.2",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0",
+    "css-loader": "^2.1.0",
+    "vue-loader": "^15.2.4"
   }
 }
