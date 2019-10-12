@@ -13,13 +13,16 @@
     "precommit": "npm run lint",
     "test": "jest --verbose --notify --watch",
     "styleguide": "vue-styleguidist server",
-    "styleguide:build": "vue-styleguidist build"
+    "styleguide:build": "vue-styleguidist build",
+    "heroku-bostbuild": "npm run build"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
-    "nuxt": "^2.4.0"
+    "node-sass": "^4.12.0",
+    "nuxt": "^2.10.0",
+    "sass-loader": "^8.0.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",
