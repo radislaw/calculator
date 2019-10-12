@@ -21,11 +21,7 @@ module.exports = {
         },
         {
           test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: require('./babel.config')
-          }
+          exclude: /node_modules/
         },
         {
           test: /\.scss$/,
