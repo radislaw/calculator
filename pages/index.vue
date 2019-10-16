@@ -1,42 +1,45 @@
 <template>
   <section class="container">
-    <div class="calculator">
-      <input v-model="value" type="text" class="calculator-input">
-      <div class="buttons-wrap">
-        <div class="buttons-eng">
-          <button
-            v-for="button in buttonsEng"
-            :key="button.value"
-            class="button"
-            :class="button.style"
-          >
-            {{ button.value }}
-          </button>
-        </div>
-        <div class="buttons">
-          <button
-            v-for="{value, style} in buttons"
-            :key="value"
-            class="button"
-            :class="style"
-            @click="addValue(value)"
-          >
-            {{ value }}
-          </button>
-        </div>
-      </div>
-    </div>
+    <Calculator />
+    <!--    <div class="calculator">-->
+    <!--      <div class="buttons-wrap">-->
+    <!--        <div class="buttons-eng">-->
+    <!--          <Button-->
+    <!--            v-for="button in buttonsEng"-->
+    <!--            :key="button.value"-->
+    <!--            :color="button.style"-->
+    <!--          >-->
+    <!--            {{ button.value }}-->
+    <!--          </Button>-->
+    <!--        </div>-->
+    <!--        <div class="buttons">-->
+    <!--          <Button-->
+    <!--            v-for="{value, style} in buttons"-->
+    <!--            :key="value"-->
+    <!--            :color="style"-->
+    <!--            @click.native="addValue(value)"-->
+    <!--          >-->
+    <!--            {{ value }}-->
+    <!--          </Button>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </section>
 </template>
 
 <script>
 // import Logo from '~/components/Logo.vue'
 
+// import Button from '../components/ui/Button/Button'
+import Calculator from '../components/Calculator/Calculator'
 export default {
-  components: {},
-  data() {
+  components: {
+    Calculator
+    // Button
+  },
+  data () {
     return {
-      value: '',
+      val: '',
       buttonsEng: [
         {
           value: '('
@@ -99,7 +102,8 @@ export default {
           value: 'sin'
         },
         {
-          value: 'cos'
+          value: 'cos',
+          style: 'action'
         },
         {
           value: 'tan'
@@ -167,7 +171,8 @@ export default {
         },
         {
           value: '-',
-          style: 'accent'
+          style: 'accent',
+          type: 'operator'
         },
         {
           value: 1
@@ -196,9 +201,18 @@ export default {
       ]
     }
   },
+  computed: {
+    isOperator () {
+      return (ch) => {
+        const operators = this.buttons.filter(btn => btn.type === 'operator')
+        console.log('operators', operators)
+        return operators
+      }
+    }
+  },
   methods: {
-    addValue(val) {
-      this.value += val
+    addValue (val) {
+      this.val += val
     }
   }
 }
@@ -223,7 +237,7 @@ export default {
     min-width: 600px;
     max-width: 600px;
     flex-direction: column;
-    background-color: $darker;
+    background-color: #eceff1;
     height: fit-content;
   }
 
@@ -243,22 +257,6 @@ export default {
   }
 } */
 
-  .calculator-input {
-    color: $base;
-    width: 100%;
-    border: none;
-    padding: .8rem;
-    display: block;
-    font-size: 2.4rem;
-    background: none;
-    text-align: right;
-    font-weight: lighter;
-
-    &:focus, &:active {
-      outline: none;
-    }
-  }
-
   .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -274,40 +272,8 @@ export default {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .button {
-    width: 100%;
-    color: $base;
-    border: none;
-    cursor: pointer;
-    padding: 0.7rem;
-    outline: none;
-    font-size: 1.2rem;
-    transition: all .3s ease-in-out;
-    font-weight: 200;
-    justify-content: center;
-    background-color: $gray;
-    box-shadow: 0 0 0 1px $darker;
-
-    &.accent {
-      background-color: $accent;
-      color: $white;
-    }
-
-    &.gray {
-      background-color: $dark;
-    }
-
-    &.action {
-    }
-
-    &:active {
-      background-color: $darker;
-    }
-
-    &.col-2 {
-      grid-column-start: 1;
-      grid-column-end: 3;
-    }
+  .-highlight {
+    color: #2196f3;
   }
 
 </style>
