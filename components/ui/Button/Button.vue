@@ -30,22 +30,25 @@ export default {
 <style lang="scss" scoped>
   .Button {
       width: 100%;
-      color: $base;
+      color: black;
       border: none;
       cursor: pointer;
-      padding: 0.7rem;
+      padding: 1.5rem 0.7rem;
       outline: none;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       transition: all .3s ease-in-out;
       font-weight: 200;
       justify-content: center;
-      background-color: $gray;
-      box-shadow: 0 0 0 1px $darker;
+      background-color: white;
+      box-shadow: 0 0 0 1px $gray-200;
 
       &.accent {
-        background-color: $accent;
-        color: $white;
+        color: $blue-a700;
       }
+
+    &.danger {
+      color: $red-400;
+    }
 
 /*
       &.base {
@@ -54,11 +57,11 @@ export default {
 */
 
       &.action {
-        background-color: $dark;
+        background-color: gray;
       }
 
-      &:active {
-        background-color: $darker;
+      &:hover {
+        background-color: #E1F5FE;
       }
 
       &.col-2 {

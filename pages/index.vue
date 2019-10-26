@@ -237,7 +237,7 @@ export default {
     /*max-width: 600px;*/
     flex-direction: column;
     background-color: #eceff1;
-    height: fit-content;
+    /*height: fit-content;*/
   }
 
   /*  .calculator-row {
