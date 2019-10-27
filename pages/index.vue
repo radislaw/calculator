@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section>
     <Calculator />
     <!--    <div class="calculator">-->
     <!--      <div class="buttons-wrap">-->
@@ -220,25 +220,24 @@ export default {
 
 <style lang="scss">
 
-  .container {
-    margin: 0 auto;
-    min-height: 100vh;
-    padding-top: 2rem;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-  }
+  /*.container {*/
+  /*  margin: 0 auto;*/
+  /*  min-height: 100vh;*/
+  /*  display: flex;*/
+  /*  justify-content: center;*/
+  /*  text-align: center;*/
+  /*}*/
 
   .calculator {
     width: 100%;
     margin: 0 auto;
     display: flex;
     padding: 0;
-    min-width: 600px;
-    max-width: 600px;
+    /*min-width: 600px;*/
+    /*max-width: 600px;*/
     flex-direction: column;
     background-color: #eceff1;
-    height: fit-content;
+    /*height: fit-content;*/
   }
 
   /*  .calculator-row {
@@ -270,10 +269,6 @@ export default {
   .buttons-wrap {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .-highlight {
-    color: #2196f3;
   }
 
 </style>

@@ -1,27 +1,29 @@
 <template>
-  <div contenteditable class="Display" @input="setExpression">
-    <!--    <span-->
-    <!--      v-for="(ch, i) in val"-->
-    <!--      :key="i"-->
-    <!--      :class="{'-highlight': isOperator(ch)}"-->
-    <!--    >{{ ch }}</span>-->
-  </div>
+  <input
+    type="text"
+    class="Display"
+    :value="value"
+    v-on="listeners"
+  >
 </template>
 
 <script>
 export default {
   name: 'Display',
-  components: {},
-  data () {
-    return {}
+  props: {
+    value: {
+      type: String,
+      default: ''
+    }
   },
-  computed: {},
-  mounted () {
-
-  },
-  methods: {
-    setExpression (e) {
-      console.log('e.target:', e.target)
+  computed: {
+    listeners () {
+      const vm = this
+      return Object.assign({}, vm.$listeners, {
+        input (e) {
+          vm.$emit('input', e.target.value)
+        }
+      })
     }
   }
 }
@@ -29,15 +31,14 @@ export default {
 
 <style lang="scss" scoped>
 .Display {
-    color: $base;
-    width: 100%;
-    min-height: 70px;
-    overflow-y: auto;
-    border: none;
-    padding: .8rem;
-    font-size: 2.4rem;
-    background-color: #eceff1;
-    text-align: right;
-    font-weight: lighter;
+  padding:          4rem 1rem 1rem;
+  background-color: $display-bg;
+  color:            $display-color;
+  font-size:        $display-font-size;
+  width:            100%;
+  outline:          0;
+  border:           0;
+  text-align:       right;
+  height:           180px;
 }
 </style>
