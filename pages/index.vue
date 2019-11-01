@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <Calculator />
     <!--    <div class="calculator">-->
     <!--      <div class="buttons-wrap">-->
@@ -219,6 +219,11 @@ export default {
 </script>
 
 <style lang="scss">
+  .container {
+    width: 100%;
+    /*max-width: 600px;*/
+    margin: 0 auto;
+  }
 
   /*.container {*/
   /*  margin: 0 auto;*/
@@ -264,11 +269,6 @@ export default {
   .buttons-eng {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-  }
-
-  .buttons-wrap {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
   }
 
 </style>

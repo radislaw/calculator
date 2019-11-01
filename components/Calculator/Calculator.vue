@@ -1,52 +1,57 @@
 <template>
-  <div class="Calculator">
+  <div class="Calculator" :class="{'-eng': !isSimpleMode}">
     <Display
-      v-model="value2"
+      v-model="expression"
       @input="getPreview"
       @keypress.enter="calculate"
     />
     <div class="preview">
       {{ preview }}
     </div>
-    <div class="instruments-panel">
-      <button type="button" class="memory-button">
-        Журнал
-      </button>
-      <button class="memory-button">
-        смена
-      </button>
-      <button class="memory-button">
-        удалить
-      </button>
-    </div>
+    <InstrumentsPanel />
     <div class="memory-panel">
-      <button type="button" class="memory-button">
+      <button type="button" class="panel__button">
         MC
       </button>
-      <button class="memory-button">
+      <button class="panel__button">
         MS
       </button>
-      <button class="memory-button">
+      <button class="panel__button">
         M+
       </button>
-      <button class="memory-button">
+      <button class="panel__button">
         M-
       </button>
-      <button class="memory-button">
+      <button class="panel__button">
         MR
       </button>
     </div>
 
-    <div class="buttons">
-      <Button
-        v-for="{value, style} in buttons"
-        :key="value"
-        :color="style"
-      >
-        <!--        @click.native="addValue(value)"-->
-        {{ value }}
-      </Button>
+    <div v-if="!isHistory" class="buttons-wrap">
+      <div v-if="!isSimpleMode" class="buttons -eng">
+        <Button
+          v-for="{value, style} in buttonsEng"
+          :key="value"
+          :color="style"
+        >
+          <!--        @click.native="addValue(value)"-->
+          {{ value }}
+        </Button>
+      </div>
+
+      <div class="buttons">
+        <Button
+          v-for="{symbol, value, style, method} in buttons"
+          :key="symbol"
+          :color="style"
+          @click.native="method(value)"
+        >
+          {{ symbol }}
+        </Button>
+      </div>
     </div>
+
+    <History v-else />
 
     <Toast v-if="isError">
       Недопустимый формат
@@ -56,134 +61,369 @@
 
 <script>
 import { create, all } from 'mathjs'
-import { mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import Display from '../ui/Display/Display'
 import Toast from '../ui/Toast/Toast'
 import Button from '../ui/Button/Button'
+import InstrumentsPanel from '../common/InstrumentsPanel'
+import History from '../../pages/history/index'
 
 const config = {}
 const math = create(all, config)
 
 export default {
   name: 'Calculator',
-  components: { Button, Toast, Display },
+  components: { History, InstrumentsPanel, Button, Toast, Display },
   data () {
     return {
-      value2: '',
+      isSimpleMode: true,
+      expression: '',
       preview: '',
       isError: false,
+      buttonsEng: [
+        {
+          value: 'x2'
+        },
+        {
+          value: 'xy'
+        },
+        {
+          value: 'sin'
+        },
+        {
+          value: 'cos'
+        },
+        {
+          value: 'tan'
+        },
+        {
+          value: 'x3'
+        },
+        {
+          value: 'y√x'
+        },
+        {
+          value: 'sin-1'
+        },
+        {
+          value: 'cos-1'
+        },
+        {
+          value: 'tan-1'
+        },
+        {
+          value: '√'
+        },
+        {
+          value: '10x'
+        },
+        {
+          value: 'log'
+        },
+        {
+          value: 'Exp'
+        },
+        {
+          value: 'Mod'
+        },
+        {
+          value: '1/x'
+        },
+        {
+          value: 'ex'
+        },
+        {
+          value: 'In'
+        },
+        {
+          value: 'dms'
+        },
+        {
+          value: 'deg'
+        },
+        {
+          value: '|x|'
+        },
+        {
+          value: 'π'
+        },
+        {
+          value: 'x!'
+        },
+        {
+          value: 'Rand'
+        },
+        {
+          value: 'EE'
+        }
+
+        // {
+        //   value: 'tan'
+        // },
+        // {
+        //   value: 'e'
+        // },
+        // {
+        //   value: 'EE'
+        // },
+        // {
+        //   value: 'Rad'
+        // },
+        // {
+        //   value: 'sinh'
+        // },
+        // {
+        //   value: 'cosh'
+        // },
+        // {
+        //   value: 'tanh'
+        // }
+      ],
       buttons: [
         {
-          value: 'C',
-          style: 'danger'
+          symbol: 'C',
+          value: null,
+          style: 'danger',
+          method: this.clear
         },
         {
-          value: '( )',
-          style: 'accent'
+          symbol: '( )',
+          actualValue: null,
+          style: 'accent',
+          method: this.addParentheses
         },
         {
+          symbol: '%',
           value: '%',
-          style: 'accent'
+          style: 'accent',
+          method: this.addValue
         },
         {
-          value: '÷',
-          style: 'accent'
+          symbol: '÷',
+          value: '/',
+          style: 'accent',
+          method: this.addOperator
         },
         {
-          value: 7
+          symbol: 7,
+          value: '7',
+          method: this.addValue
         },
         {
-          value: 8
+          symbol: 8,
+          value: '8',
+          method: this.addValue
         },
         {
-          value: 9
+          symbol: 9,
+          value: '9',
+          method: this.addValue
         },
         {
-          value: '×',
-          style: 'accent'
+          symbol: '×',
+          value: '*',
+          style: 'accent',
+          method: this.addOperator
         },
         {
-          value: 4
+          symbol: 4,
+          value: '4',
+          method: this.addValue
         },
         {
-          value: 5
+          symbol: 5,
+          value: '5',
+          method: this.addValue
         },
         {
-          value: 6
+          symbol: 6,
+          value: '6',
+          method: this.addValue
         },
         {
+          symbol: '-',
           value: '-',
           style: 'accent',
-          type: 'operator'
+          type: 'operator',
+          method: this.addOperator
         },
         {
-          value: 1
+          symbol: 1,
+          value: '1',
+          method: this.addValue
         },
         {
-          value: 2
+          symbol: 2,
+          value: '2',
+          method: this.addValue
         },
         {
-          value: 3
+          symbol: 3,
+          value: '3',
+          method: this.addValue
         },
         {
+          symbol: '+',
           value: '+',
-          style: 'accent'
+          style: 'accent',
+          method: this.addOperator
         },
         {
-          value: '±'
+          symbol: '±',
+          value: null,
+          method: this.changeSign
         },
         {
-          value: 0
+          symbol: 0,
+          value: '0',
+          method: this.addValue
         },
         {
-          value: ','
+          symbol: '.',
+          value: '.',
+          method: this.addValue
         },
         {
-          value: '=',
-          style: 'accent'
+          symbol: '=',
+          value: null,
+          style: 'accent',
+          method: this.calculate
         }
       ]
     }
   },
   computed: {
-    ...mapGetters('buttons', ['symbols']),
-
+    // ...mapGetters('buttons', ['symbols']),
+    ...mapState('history', ['isHistory']),
     isOperator () {
       return (ch) => {
         return this.symbols.includes(ch)
       }
+    },
+    lastChar () {
+      return this.expression.slice(-1)
     }
   },
   mounted () {
 
   },
   methods: {
+    ...mapActions('history', ['addLog']),
+    createChar (char) {
+      return () => ({
+        symbol: 'C',
+        value: null,
+        style: 'danger',
+        method: this.clear
+      })
+    },
+    createNumberChar (num) {
+
+    },
     getPreview () {
       try {
-        this.preview = math.evaluate(this.value2)
+        this.preview = this.solver()
         this.isError = false
       } catch (e) {
       }
     },
     calculate () {
       try {
-        this.value = math.evaluate(this.value2).toString()
+        // this.expression = math.evaluate(this.expression).toString()
+        const exp = this.expression
+        this.expression = this.solver()
+        // this.addLog(`${exp} ${this.expression}`)
+        this.addLog({
+          expression: exp,
+          result: this.expression
+        })
         this.preview = ''
         this.isError = false
       } catch (e) {
+        console.log('e:', e)
         this.isError = true
       }
+    },
+    clear () {
+      this.expression = ''
+      this.preview = ''
+    },
+    changeMode () {
+      this.isSimpleMode = !this.isSimpleMode
+    },
+    deleteLastChar () {
+      this.expression = this.expression.slice(0, -1)
+      this.getPreview()
+    },
+    addValue (val) {
+      this.expression += val
+      this.getPreview()
+    },
+    addOperator (val) {
+      this.expression && this.addValue(val)
+    },
+    percent (val) {
+      this.addValue(val)
+      console.log('val:', val)
+    },
+    addParentheses () {
+      let par = ')'
+      if (this.expression && isNaN(+this.lastChar) && this.expression.indexOf('(') === this.expression.lastIndexOf('(')) {
+        par = '('
+      }
+      this.addValue(par)
+    },
+    changeSign () {
+      this.addValue('(-')
+    },
+    solver () {
+      const pcntOfRegC = /[0-9]*\.?[0-9]%[ ]*of[ ]*/g
+      const pcntOfReg = /%[ ]*of[ ]*/g
+      const pcntReg = /[0-9]*\.?[0-9]%/g
+      const modReg = /[0-9]*\.?[0-9]%[0-9]*\.?[0-9]/g
+      const numReg = /[0-9]*\.?[0-9]/g
+
+      if (this.expression.match(pcntOfRegC)) {
+        this.expression = this.expression.replace(pcntOfReg, '/100*')
+      }
+
+      if (this.expression.match(modReg)) {
+        const modVals = this.expression.match(modReg)
+        modVals.forEach(function (modVal) {
+          this.expression = this.expression.replace(modVal, String(math.evaluate(modVal)))
+        })
+      }
+
+      while (this.expression.match(pcntReg) && !this.expression.match(modReg)) {
+        const right = this.expression.match(pcntReg)[0]
+        const left = this.expression.split(right)[0]
+        const leftTrim = left.trim()
+        let leftVal = leftTrim.slice(0, -1)
+
+        leftVal = String(math.evaluate(leftVal))
+
+        const pcntVal = right.match(numReg)[0]
+        let newval = leftVal + '*' + pcntVal + '/100'
+
+        newval = String(math.evaluate(newval))
+        this.expression = this.expression.replace(left + right, String(math.evaluate(left + newval)))
+      }
+
+      return math.evaluate(this.expression)
     }
+
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .Calculator {
-  width:  100%;
-  border: 1px solid $gray-200;
-  position: relative;
+  width:     100%;
+  max-width: 375px;
+  margin:    0 auto;
+  border:    1px solid $gray-200;
+  position:  relative;
 
   .preview {
     font-size:        1.5rem;
@@ -194,32 +434,27 @@ export default {
     padding: 1rem;
   }
 
-  .instruments-panel {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .memory-panel {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-  }
-  .memory-button {
-    text-align: center;
-    padding: 0.5rem;
-    border: 1px solid $gray-200;
-    background-color: $gray-100;
-    border-right: none ;
-    cursor: pointer;
-    outline: none;
-
-    &:first-child {
-      border-left: none;
-    }
   }
 
   .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+
+    &.-eng {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  &.-eng {
+    max-width: 812px;
+
+    .buttons-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 </style>

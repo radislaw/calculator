@@ -3,6 +3,7 @@
     type="text"
     class="Display"
     :value="value"
+    autofocus
     v-on="listeners"
   >
 </template>
@@ -12,7 +13,7 @@ export default {
   name: 'Display',
   props: {
     value: {
-      type: String,
+      type: [String, Number],
       default: ''
     }
   },
