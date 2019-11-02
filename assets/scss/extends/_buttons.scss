@@ -1,0 +1,16 @@
+.button {
+  width: 100%;
+  color: black;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all .3s ease-in-out;
+  text-align: center;
+  box-shadow: 0 0 0 1px $gray-200;
+}
+
+.panel__button {
+  @extend .button;
+  padding: 0.5rem;
+  background-color: $gray-100;
+}

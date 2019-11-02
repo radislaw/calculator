@@ -29,19 +29,11 @@ export default {
 
 <style lang="scss" scoped>
   .Button {
-      width: 100%;
-      color: black;
-      border: none;
-      cursor: pointer;
-      padding: 1.5rem 0.7rem;
-      outline: none;
-      font-size: 1.5rem;
-      transition: all .3s ease-in-out;
-      font-weight: 200;
-      justify-content: center;
-      background-color: white;
-      box-shadow: 0 0 0 1px $gray-200;
-
+    @extend .button;
+    padding: 1.5rem 0.7rem;
+    font-size: 1.5rem;
+    font-weight: 200;
+    background-color: white;
       &.accent {
         color: $blue-a700;
         font-weight: bold;
