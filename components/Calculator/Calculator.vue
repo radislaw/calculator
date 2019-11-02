@@ -164,6 +164,7 @@ export default {
         this.preview = math.evaluate(this.value2)
         this.isError = false
       } catch (e) {
+        this.isError = false
       }
     },
     calculate () {

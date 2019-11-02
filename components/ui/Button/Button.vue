@@ -44,6 +44,7 @@ export default {
 
       &.accent {
         color: $blue-a700;
+        font-weight: bold;
       }
 
     &.danger {

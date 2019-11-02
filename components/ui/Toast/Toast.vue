@@ -22,6 +22,7 @@ export default {
     border-radius: 16px;
     text-align: center;
     opacity: 0;
+    top: 100px;
     animation: fade-in-out 3s ease-in;
   }
 
