@@ -4,13 +4,13 @@
       v-for="({expression, result}, i ) in history"
       :key="i"
       class="item"
-      @click="pasteLog"
+      @click="pasteResult"
     >
       <div class="expression">
         {{ expression }}
       </div>
       <div class="result">
-        {{ result }}
+        ={{ result }}
       </div>
     </li>
   </ul>
@@ -23,11 +23,12 @@ export default {
   name: 'History',
   computed: mapState('history', ['history']),
   mounted () {
+    console.log('werwwerwwwer')
     this.getLocalHistory()
   },
   methods: {
     ...mapActions('history', ['getLocalHistory']),
-    pasteLog () {
+    pasteResult () {
 
     }
   }
@@ -40,18 +41,29 @@ export default {
     @extend .list-unstyled;
     overflow-y: auto;
     text-align: right;
+    display: flex;
+    flex-direction: column-reverse;
 
     .item {
-      padding: 1rem;
-      box-shadow: 0 0 0 1px $gray-200;
+      padding: 1.125rem;
+
+      /*&:not(:first-child) {*/
+        border-top: 1px solid $gray-200;
+      /*}*/
+
+      &:hover {
+        background-color: $button-hover-bg;
+        cursor: pointer;
+      }
     }
 
     .expression {
-
+      color: $gray-400;
+      font-size: $md-font;
     }
 
     .result {
-
+      color: $blue-a700;
     }
   }
 </style>

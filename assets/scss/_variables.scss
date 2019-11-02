@@ -1,8 +1,12 @@
 /* Primary colors palette. Based on material colors palette*/
 $white:             #FFFFFF;
 $black:             #000000;
+
+$blue-50:           #E1F5FE;
 $blue-a700:         #0091EA;
+
 $red-400:           #EF5350;
+
 $gray-100:          #FAFAFA;
 $gray-200:          #EEEEEE;
 $gray-300:          #E0E0E0;
@@ -20,6 +24,8 @@ $preview-color:     $gray-400;
 
 // дизейбл
 $disabled-color:    $gray-300;
+
+$button-hover-bg: $blue-50;
 
 // иконка смены режима
 // цифры на кнопках

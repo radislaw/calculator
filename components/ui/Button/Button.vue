@@ -54,7 +54,7 @@ export default {
       }
 
       &:hover {
-        background-color: #E1F5FE;
+        background-color: $button-hover-bg;
       }
 
       &.col-2 {

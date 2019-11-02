@@ -5,7 +5,7 @@
         Журнал
       </template>
       <template v-else>
-        Калькулятор
+        Клавиатура
       </template>
     </button>
 

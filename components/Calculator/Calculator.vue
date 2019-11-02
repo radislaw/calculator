@@ -67,7 +67,7 @@ import Display from '../ui/Display/Display'
 import Toast from '../ui/Toast/Toast'
 import Button from '../ui/Button/Button'
 import InstrumentsPanel from '../common/InstrumentsPanel'
-import History from '../../pages/history/index'
+import History from '../common/History'
 
 const config = {}
 const math = create(all, config)
@@ -333,7 +333,7 @@ export default {
       try {
         // this.expression = math.evaluate(this.expression).toString()
         const exp = this.expression
-        this.expression = this.solver()
+        this.expression = this.solver().toString()
         // this.addLog(`${exp} ${this.expression}`)
         this.addLog({
           expression: exp,
@@ -384,6 +384,8 @@ export default {
       const pcntReg = /[0-9]*\.?[0-9]%/g
       const modReg = /[0-9]*\.?[0-9]%[0-9]*\.?[0-9]/g
       const numReg = /[0-9]*\.?[0-9]/g
+
+      console.log(444, this.expression)
 
       if (this.expression.match(pcntOfRegC)) {
         this.expression = this.expression.replace(pcntOfReg, '/100*')
