@@ -1,6 +1,6 @@
 <template>
   <button
-    class="Button"
+    class="VButton"
     :class="color"
   >
     <!-- @slot Текст кнопки-->
@@ -14,7 +14,7 @@
    * @displayName Button
    */
 export default {
-  name: 'Button',
+  name: 'VButton',
   props: {
     /**
        * Стиль кнопки
@@ -28,9 +28,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .Button {
+  .VButton {
     @extend .button;
-    padding: 1.5rem 0.7rem;
+    padding: 17px 0.7rem;
     font-size: 1.5rem;
     font-weight: 200;
     background-color: white;
@@ -51,10 +51,6 @@ export default {
 
       &.action {
         background-color: gray;
-      }
-
-      &:hover {
-        background-color: $button-hover-bg;
       }
 
       &.col-2 {

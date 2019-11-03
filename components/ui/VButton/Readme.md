@@ -2,6 +2,6 @@ Button example:
 
 ```js
 
-<Button>🍕</Button>
+<VButton>🍕</VButton>
 
 ```

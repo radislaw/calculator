@@ -1,33 +1,36 @@
 <template>
-  <ul class="History">
-    <li
-      v-for="({expression, result}, i ) in history"
-      :key="i"
-      class="item"
-      @click="pasteResult"
-    >
-      <div class="expression">
-        {{ expression }}
-      </div>
-      <div class="result">
-        ={{ result }}
-      </div>
-    </li>
-  </ul>
+  <div class="History">
+    <ul class="list">
+      <li
+        v-for="({expression, result}, i ) in history"
+        :key="i"
+        class="item"
+        @click="pasteResult"
+      >
+        <div class="expression">
+          {{ expression }}
+        </div>
+        <div class="result">
+          ={{ result }}
+        </div>
+      </li>
+    </ul>
+    <VButton class="clear" @click.native="clearHistory">
+      Очистить журнал
+    </VButton>
+  </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import VButton from '../ui/VButton/VButton'
 
 export default {
   name: 'History',
+  components: { VButton },
   computed: mapState('history', ['history']),
-  mounted () {
-    console.log('werwwerwwwer')
-    this.getLocalHistory()
-  },
   methods: {
-    ...mapActions('history', ['getLocalHistory']),
+    ...mapActions('history', ['clearHistory']),
     pasteResult () {
 
     }
@@ -37,33 +40,42 @@ export default {
 
 <style lang="scss" scoped>
   .History {
-    height: $work-area-height;
-    @extend .list-unstyled;
-    overflow-y: auto;
-    text-align: right;
-    display: flex;
-    flex-direction: column-reverse;
+    position: relative;
 
-    .item {
-      padding: 1.125rem;
+    .list {
+      @extend .list-unstyled;
+      height: $work-area-height - 48;
+      overflow-y: auto;
+      text-align: right;
+      display: flex;
+      flex-direction: column-reverse;
 
-      /*&:not(:first-child) {*/
-        border-top: 1px solid $gray-200;
-      /*}*/
+      .item {
+        padding: 0.875rem;
+        border-bottom: 1px solid $gray-200;
 
-      &:hover {
-        background-color: $button-hover-bg;
-        cursor: pointer;
+        &:hover {
+          background-color: $button-hover-bg;
+          cursor: pointer;
+        }
+      }
+
+      .expression {
+        color: $gray-400;
+        font-size: $md-font;
+      }
+
+      .result {
+        color: $blue-a700;
       }
     }
-
-    .expression {
-      color: $gray-400;
+    .clear {
+      @extend .button;
+      padding: 1rem;
+      text-align: center;
       font-size: $md-font;
-    }
-
-    .result {
       color: $blue-a700;
+      text-transform: uppercase;
     }
   }
 </style>

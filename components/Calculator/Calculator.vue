@@ -40,14 +40,14 @@
       </div>
 
       <div class="buttons">
-        <Button
+        <VButton
           v-for="{symbol, value, style, method} in buttons"
           :key="symbol"
           :color="style"
           @click.native="method(value)"
         >
           {{ symbol }}
-        </Button>
+        </VButton>
       </div>
     </div>
 
@@ -65,7 +65,7 @@ import { mapState, mapActions } from 'vuex'
 
 import Display from '../ui/Display/Display'
 import Toast from '../ui/Toast/Toast'
-import Button from '../ui/Button/Button'
+import VButton from '../ui/VButton/VButton'
 import InstrumentsPanel from '../common/InstrumentsPanel'
 import History from '../common/History'
 
@@ -74,7 +74,7 @@ const math = create(all, config)
 
 export default {
   name: 'Calculator',
-  components: { History, InstrumentsPanel, Button, Toast, Display },
+  components: { VButton, History, InstrumentsPanel, Toast, Display },
   data () {
     return {
       isSimpleMode: true,
@@ -306,10 +306,10 @@ export default {
     }
   },
   mounted () {
-
+    this.getLocalHistory()
   },
   methods: {
-    ...mapActions('history', ['addLog']),
+    ...mapActions('history', ['addLog', 'getLocalHistory']),
     createChar (char) {
       return () => ({
         symbol: 'C',
@@ -330,20 +330,22 @@ export default {
       }
     },
     calculate () {
-      try {
+      if (this.expression) {
+        try {
         // this.expression = math.evaluate(this.expression).toString()
-        const exp = this.expression
-        this.expression = this.solver().toString()
-        // this.addLog(`${exp} ${this.expression}`)
-        this.addLog({
-          expression: exp,
-          result: this.expression
-        })
-        this.preview = ''
-        this.isError = false
-      } catch (e) {
-        console.log('e:', e)
-        this.isError = true
+          const exp = this.expression
+          this.expression = this.solver().toString()
+          // this.addLog(`${exp} ${this.expression}`)
+          this.addLog({
+            expression: exp,
+            result: this.expression
+          })
+          this.preview = ''
+          this.isError = false
+        } catch (e) {
+          console.log('e:', e)
+          this.isError = true
+        }
       }
     },
     clear () {

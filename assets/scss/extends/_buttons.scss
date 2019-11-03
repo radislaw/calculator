@@ -1,15 +1,31 @@
 .button {
+  font-family: $font-family;
+  color: $button-color;
+  background-color: $button-bg;
   width: 100%;
-  color: $black;
   border: none;
   cursor: pointer;
   outline: none;
   text-align: center;
   box-shadow: 0 0 0 1px $gray-200;
+
+  &:hover {
+    background-color: $button-hover-bg;
+  }
+
+  &:disabled {
+    color: $button-disabled-color;
+    background-color: $button-disabled-bg;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $button-disabled-hover-bg;
+    }
+  }
 }
 
 .panel__button {
   @extend .button;
   padding: 0.5rem;
-  background-color: $gray-100;
+  text-transform: uppercase;
 }

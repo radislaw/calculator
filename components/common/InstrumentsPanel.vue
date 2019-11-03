@@ -1,11 +1,14 @@
 <template>
   <div class="InstrumentsPanel">
-    <button class="panel__button" @click="toggleHistory">
-      <template v-if="isSimpleMode">
-        Журнал
+    <button
+      class="panel__button"
+      :disabled="!hasLogs"
+      @click="toggleHistory">
+      <template v-if="isHistory">
+        Клавиатура
       </template>
       <template v-else>
-        Клавиатура
+        Журнал
       </template>
     </button>
 
@@ -28,7 +31,7 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'InstrumentsPanel',
-  computed: mapState(['isSimpleMode']),
+  computed: mapState('history', ['isSimpleMode', 'isHistory', 'hasLogs']),
   mounted () {
 
   },
