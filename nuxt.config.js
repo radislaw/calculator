@@ -46,7 +46,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/style-resources',
+    '@nuxtjs/style-resources'
   ],
   /*
   ** Axios module configuration
@@ -62,7 +62,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend (config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
@@ -72,6 +72,9 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    },
+    babel: {
+      plugins: ['transform-class-properties']
     }
   }
 }
