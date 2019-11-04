@@ -5,7 +5,7 @@
       :key="name"
       :title="title"
       class="panel__button"
-      @click="method(lastResult)"
+      @click="method"
     >
       {{ name }}
     </button>

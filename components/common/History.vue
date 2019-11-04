@@ -5,7 +5,7 @@
         v-for="({expression, result}, i ) in history"
         :key="i"
         class="item"
-        @click="pasteResult"
+        @click="pasteResult(result)"
       >
         <div class="expression">
           {{ expression }}
@@ -31,8 +31,8 @@ export default {
   computed: mapState('history', ['history']),
   methods: {
     ...mapActions('history', ['clearHistory']),
-    pasteResult () {
-
+    pasteResult (result) {
+      this.$emit('paste', result)
     }
   }
 }

@@ -43,7 +43,10 @@
       </div>
     </div>
 
-    <History v-else />
+    <History
+      v-else
+      @paste="pasteFromHistory"
+    />
 
     <Toast v-if="isError">
       Недопустимый формат
@@ -305,7 +308,7 @@ export default {
   },
   methods: {
     ...mapActions('calculator', ['saveLastResult']),
-    ...mapActions('history', ['addLog', 'getLocalHistory']),
+    ...mapActions('history', ['addLog', 'getLocalHistory', 'toggleHistory']),
     ...mapActions('memory', [
       'memorySave',
       'memoryPlus',
@@ -325,6 +328,10 @@ export default {
     },
     memoryRecall () {
       this.expression += this.memoryValue
+    },
+    pasteFromHistory (value) {
+      this.expression += value
+      this.toggleHistory()
     },
     getPreview () {
       try {
@@ -365,17 +372,15 @@ export default {
       this.getPreview()
     },
     addValue (val) {
-      if (this.isCalculated) { this.expression = '' }
+      if (this.isCalculated && !Number.isNaN(val)) {
+        this.expression = ''
+      }
       this.expression += val
       this.getPreview()
       this.isCalculated = false
     },
     addOperator (val) {
       this.expression && this.addValue(val)
-    },
-    percent (val) {
-      this.addValue(val)
-      console.log('val:', val)
     },
     addParentheses () {
       let par = ')'
