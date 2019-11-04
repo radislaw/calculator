@@ -1,6 +1,5 @@
 import {
   SET_HISTORY,
-  SET_LAST_RESULT,
   ADD_LOG,
   SET_IS_HISTORY,
   SET_HAS_LOGS
@@ -8,7 +7,6 @@ import {
 
 export const state = () => ({
   history: [],
-  lastResult: '',
   isHistory: false,
   hasLogs: false
 })
@@ -16,9 +14,6 @@ export const state = () => ({
 export const mutations = {
   [SET_HISTORY] (state, history) {
     state.history = history
-  },
-  [SET_LAST_RESULT] (state, result) {
-    state.lastResult = result
   },
   [ADD_LOG] (state, log) {
     state.history.push(log)
@@ -36,8 +31,12 @@ export const actions = {
     if (localStorage.getItem('calculatorHistory')) {
       try {
         const history = JSON.parse(localStorage.getItem('calculatorHistory'))
-        commit('SET_HISTORY', history)
-        commit('SET_HAS_LOGS', true)
+        if (Array.isArray(history)) {
+          commit('SET_HISTORY', history)
+          commit('SET_HAS_LOGS', true)
+        } else {
+          localStorage.removeItem('calculatorHistory')
+        }
       } catch (e) {
         localStorage.removeItem('calculatorHistory')
       }
@@ -46,7 +45,7 @@ export const actions = {
   addLog ({ state, commit }, log) {
     commit('ADD_LOG', log)
     localStorage.setItem('calculatorHistory', JSON.stringify(state.history))
-    commit('SET_HAS_LOGS', true)
+    !state.hasLogs && commit('SET_HAS_LOGS', true)
   },
   clearHistory ({ commit }) {
     commit('SET_HISTORY', [])

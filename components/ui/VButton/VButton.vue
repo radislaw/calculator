@@ -34,28 +34,29 @@ export default {
     font-size: 1.5rem;
     font-weight: 200;
     background-color: white;
-      &.accent {
-        color: $blue-a700;
-        font-weight: bold;
-      }
+
+    &.accent {
+      color: $blue-a700;
+      font-weight: bold;
+    }
 
     &.danger {
       color: $red-400;
     }
 
-/*
-      &.base {
-        background-color: $dark;
-      }
-*/
+    /*
+          &.base {
+            background-color: $dark;
+          }
+    */
 
-      &.action {
-        background-color: gray;
-      }
+    &.action {
+      background-color: gray;
+    }
 
-      &.col-2 {
-        grid-column-start: 1;
-        grid-column-end: 3;
-      }
+    &.col-2 {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
   }
 </style>

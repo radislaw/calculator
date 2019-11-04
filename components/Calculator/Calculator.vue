@@ -5,27 +5,19 @@
       @input="getPreview"
       @keypress.enter="calculate"
     />
+
     <div class="preview">
       {{ preview }}
     </div>
+
     <InstrumentsPanel />
-    <div class="memory-panel">
-      <button type="button" class="panel__button">
-        MC
-      </button>
-      <button class="panel__button">
-        MS
-      </button>
-      <button class="panel__button">
-        M+
-      </button>
-      <button class="panel__button">
-        M-
-      </button>
-      <button class="panel__button">
-        MR
-      </button>
-    </div>
+
+    <MemoryPanel
+      @memory-save="mSave"
+      @memory-plus="mPlus"
+      @memory-minus="mMinus"
+      @memory-recall="memoryRecall"
+    />
 
     <div v-if="!isHistory" class="buttons-wrap">
       <div v-if="!isSimpleMode" class="buttons -eng">
@@ -68,16 +60,18 @@ import Toast from '../ui/Toast/Toast'
 import VButton from '../ui/VButton/VButton'
 import InstrumentsPanel from '../common/InstrumentsPanel'
 import History from '../common/History'
+import MemoryPanel from '../common/MemoryPanel'
 
 const config = {}
 const math = create(all, config)
 
 export default {
   name: 'Calculator',
-  components: { VButton, History, InstrumentsPanel, Toast, Display },
+  components: { MemoryPanel, VButton, History, InstrumentsPanel, Toast, Display },
   data () {
     return {
-      isSimpleMode: true,
+      lastResult: '',
+      isCalculated: false,
       expression: '',
       preview: '',
       isError: false,
@@ -294,8 +288,9 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters('buttons', ['symbols']),
+    ...mapState('calculator', ['isSimpleMode']),
     ...mapState('history', ['isHistory']),
+    ...mapState('memory', ['memoryValue']),
     isOperator () {
       return (ch) => {
         return this.symbols.includes(ch)
@@ -309,17 +304,27 @@ export default {
     this.getLocalHistory()
   },
   methods: {
+    ...mapActions('calculator', ['saveLastResult']),
     ...mapActions('history', ['addLog', 'getLocalHistory']),
-    createChar (char) {
-      return () => ({
-        symbol: 'C',
-        value: null,
-        style: 'danger',
-        method: this.clear
-      })
+    ...mapActions('memory', [
+      'memorySave',
+      'memoryPlus',
+      'memoryMinus'
+    ]),
+    mSave () {
+      this.calculate()
+      this.memorySave(this.lastResult)
     },
-    createNumberChar (num) {
-
+    mPlus () {
+      this.calculate()
+      this.memoryPlus(this.lastResult)
+    },
+    mMinus () {
+      this.calculate()
+      this.memoryMinus(this.lastResult)
+    },
+    memoryRecall () {
+      this.expression += this.memoryValue
     },
     getPreview () {
       try {
@@ -332,18 +337,18 @@ export default {
     calculate () {
       if (this.expression) {
         try {
-        // this.expression = math.evaluate(this.expression).toString()
-          const exp = this.expression
+          const prevValue = this.expression
           this.expression = this.solver().toString()
-          // this.addLog(`${exp} ${this.expression}`)
+          this.lastResult = this.expression
+          this.isCalculated = true
           this.addLog({
-            expression: exp,
+            expression: prevValue,
             result: this.expression
           })
           this.preview = ''
           this.isError = false
         } catch (e) {
-          console.log('e:', e)
+          console.log(e)
           this.isError = true
         }
       }
@@ -360,8 +365,10 @@ export default {
       this.getPreview()
     },
     addValue (val) {
+      if (this.isCalculated) { this.expression = '' }
       this.expression += val
       this.getPreview()
+      this.isCalculated = false
     },
     addOperator (val) {
       this.expression && this.addValue(val)
@@ -437,11 +444,6 @@ export default {
     color:            $preview-color;
     height:           4rem;
     padding: 1rem;
-  }
-
-  .memory-panel {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
   }
 
   .buttons {
