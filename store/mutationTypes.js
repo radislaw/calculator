@@ -1,4 +1,4 @@
-export const SET_LAST_RESULT = 'SET_LAST_RESULT'
+export const SET_SIMPLE_MODE = 'SET_SIMPLE_MODE'
 
 export const SET_HISTORY = 'SET_HISTORY'
 export const ADD_LOG = 'ADD_LOG'

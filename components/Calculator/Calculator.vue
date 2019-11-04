@@ -10,7 +10,9 @@
       {{ preview }}
     </div>
 
-    <InstrumentsPanel />
+    <InstrumentsPanel
+      @delete="deleteLastChar"
+    />
 
     <MemoryPanel
       @memory-save="mSave"
@@ -21,14 +23,14 @@
 
     <div v-if="!isHistory" class="buttons-wrap">
       <div v-if="!isSimpleMode" class="buttons -eng">
-        <Button
-          v-for="{value, style} in buttonsEng"
+        <VButton
+          v-for="{symbol, value, style, method} in buttonsEng"
           :key="value"
           :color="style"
+          @click.native="method(value)"
         >
-          <!--        @click.native="addValue(value)"-->
-          {{ value }}
-        </Button>
+          {{ symbol }}
+        </VButton>
       </div>
 
       <div class="buttons">
@@ -67,6 +69,7 @@ import MemoryPanel from '../common/MemoryPanel'
 
 const config = {}
 const math = create(all, config)
+console.log('math', math)
 
 export default {
   name: 'Calculator',
@@ -80,79 +83,153 @@ export default {
       isError: false,
       buttonsEng: [
         {
-          value: 'x2'
+          symbol: 'x2',
+          value: '^(2)',
+          style: 'action',
+          method: this.addValue
+
         },
         {
-          value: 'xy'
+          symbol: 'xy',
+          value: '^(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'sin'
+          symbol: 'sin',
+          value: 'sin(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'cos'
+          symbol: 'cos',
+          value: 'cos(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'tan'
+          symbol: 'tan',
+          value: 'tan(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'x3'
+          symbol: 'x3',
+          value: '^(3)',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'y√x'
+          symbol: '3√x',
+          value: 'cbrt(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'sin-1'
+          symbol: 'asin',
+          value: 'asin(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'cos-1'
+          symbol: 'acos',
+          value: 'acos(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'tan-1'
+          symbol: 'atan',
+          value: 'atan(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: '√'
+          symbol: '√',
+          value: 'sqrt(',
+          style: 'action',
+          method: this.addValue
+        },
+        // {
+        //   // todo
+        //   symbol: '10x',
+        //   value: '10x',
+        //   style: 'action',
+        //   method: this.addValue
+        // },
+        {
+          symbol: 'log',
+          value: 'log(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: '10x'
+          symbol: 'Exp',
+          value: 'exp(',
+          style: 'action',
+          method: this.addValue
+        },
+        // {
+        //   // todo
+        //   symbol: 'Mod',
+        //   value: 'mod(',
+        //   style: 'action',
+        //   method: this.addValue
+        // },
+        {
+          symbol: '1/x',
+          value: '1/',
+          style: 'action',
+          method: this.addValue
+        },
+        // {
+        //   // todo
+        //   symbol: 'ex',
+        //   value: '',
+        //   style: 'action',
+        //   method: this.addValue
+        // },
+        // {
+        //   symbol: 'log',
+        //   value: 'log(',
+        //   style: 'action',
+        //   method: this.addValue
+        // },
+        // {
+        //   value: 'dms'
+        // },
+        {
+          symbol: 'deg'
         },
         {
-          value: 'log'
+          symbol: '|x|',
+          value: 'abs(',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'Exp'
+          symbol: 'π',
+          value: Math.PI,
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'Mod'
+          // todo
+          symbol: 'x!',
+          value: 'x!',
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: '1/x'
+          symbol: 'Rand',
+          value: Math.random(),
+          style: 'action',
+          method: this.addValue
         },
         {
-          value: 'ex'
-        },
-        {
-          value: 'In'
-        },
-        {
-          value: 'dms'
-        },
-        {
-          value: 'deg'
-        },
-        {
-          value: '|x|'
-        },
-        {
-          value: 'π'
-        },
-        {
-          value: 'x!'
-        },
-        {
-          value: 'Rand'
-        },
-        {
-          value: 'EE'
+          symbol: 'e',
+          value: Math.E,
+          style: 'action',
+          method: this.addValue
         }
 
         // {
@@ -399,8 +476,6 @@ export default {
       const modReg = /[0-9]*\.?[0-9]%[0-9]*\.?[0-9]/g
       const numReg = /[0-9]*\.?[0-9]/g
 
-      console.log(444, this.expression)
-
       if (this.expression.match(pcntOfRegC)) {
         this.expression = this.expression.replace(pcntOfReg, '/100*')
       }
@@ -456,7 +531,7 @@ export default {
     grid-template-columns: repeat(4, 1fr);
 
     &.-eng {
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 

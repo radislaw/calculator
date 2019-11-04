@@ -31,7 +31,7 @@ export default {
   .VButton {
     @extend .button;
     padding: 17px 0.7rem;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 200;
     background-color: white;
 
@@ -51,7 +51,7 @@ export default {
     */
 
     &.action {
-      background-color: gray;
+      background-color: $gray-100;
     }
 
     &.col-2 {

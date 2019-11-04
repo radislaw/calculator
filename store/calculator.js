@@ -1,20 +1,17 @@
-import { SET_LAST_RESULT } from './mutationTypes'
+import { SET_SIMPLE_MODE } from './mutationTypes'
 
 export const state = () => ({
   isSimpleMode: true
 })
 
 export const mutations = {
-  [SET_LAST_RESULT] (state, bool) {
+  [SET_SIMPLE_MODE] (state, bool) {
     state.isSimpleMode = bool
   }
 }
 
 export const actions = {
-  saveLastResult ({ commit }, value) {
-    commit('SET_LAST_RESULT', value)
-  },
-  clearLastResult ({ commit }) {
-    commit('SET_LAST_RESULT', '')
+  toggleMode ({ state, commit }) {
+    commit('SET_SIMPLE_MODE', !state.isSimpleMode)
   }
 }

@@ -3,7 +3,8 @@
     <button
       class="panel__button"
       :disabled="!hasLogs"
-      @click="toggleHistory">
+      @click="toggleHistory"
+    >
       <template v-if="isHistory">
         Клавиатура
       </template>
@@ -31,15 +32,16 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'InstrumentsPanel',
-  computed: mapState('history', ['isSimpleMode', 'isHistory', 'hasLogs']),
+  computed: {
+    ...mapState('history', ['isHistory', 'hasLogs']),
+    ...mapState('calculator', ['isSimpleMode'])
+  },
   mounted () {
 
   },
   methods: {
-    ...mapActions('history', ['toggleMode', 'toggleHistory']),
-    changeMode () {
-      this.$emit('changeMode')
-    },
+    ...mapActions('history', ['toggleHistory']),
+    ...mapActions('calculator', ['toggleMode']),
     deleteLastChar () {
       this.$emit('delete')
     }
