@@ -69,7 +69,6 @@ import MemoryPanel from '../common/MemoryPanel'
 
 const config = {}
 const math = create(all, config)
-console.log('math', math)
 
 export default {
   name: 'Calculator',
@@ -231,28 +230,6 @@ export default {
           style: 'action',
           method: this.addValue
         }
-
-        // {
-        //   value: 'tan'
-        // },
-        // {
-        //   value: 'e'
-        // },
-        // {
-        //   value: 'EE'
-        // },
-        // {
-        //   value: 'Rad'
-        // },
-        // {
-        //   value: 'sinh'
-        // },
-        // {
-        //   value: 'cosh'
-        // },
-        // {
-        //   value: 'tanh'
-        // }
       ],
       buttons: [
         {

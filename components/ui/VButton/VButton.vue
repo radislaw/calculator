@@ -1,5 +1,7 @@
 <template>
   <button
+    type="button"
+    role="button"
     class="VButton"
     :class="color"
   >
@@ -43,12 +45,6 @@ export default {
     &.danger {
       color: $red-400;
     }
-
-    /*
-          &.base {
-            background-color: $dark;
-          }
-    */
 
     &.action {
       background-color: $gray-100;

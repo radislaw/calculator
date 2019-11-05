@@ -22,8 +22,14 @@
       </template>
     </button>
 
-    <button class="panel__button" @click="deleteLastChar">
-      Удалить символ
+    <button
+      type="button"
+      role="button"
+      title="Удалить символ"
+      class="panel__button"
+      @click="deleteLastChar"
+    >
+      <svg-icon name="delete" class="delete" />
     </button>
   </div>
 </template>
@@ -54,8 +60,9 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
-    .panel__button {
-
+    .delete {
+      width: 2rem;
+      height: 10px;
     }
   }
 </style>
