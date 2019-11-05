@@ -14,7 +14,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=cyrillic' }
     ]
   },
 
@@ -46,7 +47,8 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/svg-sprite'
   ],
   /*
   ** Axios module configuration
@@ -72,9 +74,6 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    },
-    babel: {
-      plugins: ['transform-class-properties']
     }
   }
 }
