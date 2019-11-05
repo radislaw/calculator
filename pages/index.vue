@@ -205,7 +205,6 @@ export default {
     isOperator () {
       return (ch) => {
         const operators = this.buttons.filter(btn => btn.type === 'operator')
-        console.log('operators', operators)
         return operators
       }
     }

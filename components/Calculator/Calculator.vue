@@ -24,12 +24,12 @@
     <div v-if="!isHistory" class="buttons-wrap">
       <div v-if="!isSimpleMode" class="buttons -eng">
         <VButton
-          v-for="{symbol, value, style, method} in buttonsEng"
-          :key="value"
+          v-for="{value, style, method} in buttonsEng"
+          :key="value.button"
           :color="style"
-          @click.native="method(value)"
+          @click.native="method(value.expression)"
         >
-          {{ symbol }}
+          {{ value.button }}
         </VButton>
       </div>
 
@@ -82,8 +82,11 @@ export default {
       isError: false,
       buttonsEng: [
         {
-          symbol: 'x2',
-          value: '^(2)',
+          value: {
+            display: '^(2)',
+            button: 'x2',
+            expression: '^(2)'
+          },
           style: 'action',
           method: this.addValue
 
@@ -417,9 +420,6 @@ export default {
     clear () {
       this.expression = ''
       this.preview = ''
-    },
-    changeMode () {
-      this.isSimpleMode = !this.isSimpleMode
     },
     deleteLastChar () {
       this.expression = this.expression.slice(0, -1)

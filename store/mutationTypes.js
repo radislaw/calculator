@@ -1,3 +1,5 @@
+export const SET_EXPRESSION = 'SET_EXPRESSION'
+export const SET_PREVIEW = 'SET_PREVIEW'
 export const SET_SIMPLE_MODE = 'SET_SIMPLE_MODE'
 
 export const SET_HISTORY = 'SET_HISTORY'

@@ -1,37 +1,43 @@
 <template>
-  <input
-    type="text"
-    class="Display"
-    :value="value"
-    autofocus
-    v-on="listeners"
-  >
+  <div class="Display">
+    <span
+      v-for="(ch, i) in expressionDisplay"
+      :key="i"
+      :class="{'operator': isOperator(ch)}"
+    >
+      {{ ch }}
+    </span>
+  </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Display',
-  props: {
-    value: {
-      type: [String, Number],
-      default: ''
+  computed: {
+    ...mapState('calculator', ['expressionDisplay']),
+    isOperator () {
+      const symbols = ['+', '-']
+      return (ch) => {
+        return symbols.includes(ch)
+      }
     }
   },
-  computed: {
-    listeners () {
-      const vm = this
-      return Object.assign({}, vm.$listeners, {
-        input (e) {
-          vm.$emit('input', e.target.value)
-        }
-      })
+  watch: {
+    value (val) {
     }
+    // if val.length > n {
+
+    // }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .Display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   padding:          4rem 1rem 1rem;
   background-color: $display-bg;
   color:            $display-color;
@@ -41,5 +47,9 @@ export default {
   border:           0;
   text-align:       right;
   height:           180px;
+
+  .operator {
+    color: $operator-color;
+  }
 }
 </style>
